@@ -42,7 +42,7 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto d-flex align-items-center">
-<c:if test="${loginModel.member_id != 0}">          
+<c:if test="${loginModel.member_id != 0}">
       <li class="nav-item pr-3">
         <div class="border bg-${loginModel.plan.plan_color} rounded" style="padding:3px 15px ;">${loginModel.plan.plan_name}</div>
       </li>
@@ -90,7 +90,7 @@
         </div>
         <div class="info">
           <a href="#" class="d-block">
-            ${loginModel.name}<c:if test="${loginModel.admin == 1}">&nbsp;<i class="fas fa-user-cog"></i></c:if>
+            ${loginModel.member_name}<c:if test="${loginModel.admin == 1}">&nbsp;<i class="fas fa-user-cog"></i></c:if>
           </a>
         </div>
       </div>
@@ -185,7 +185,10 @@
 
 <!-- jQuery -->
 <script src="<c:url value="/resources/plugins/jquery/jquery.min.js" />"></script>
-
+<!-- jquery-validation -->
+<script src="<c:url value="/resources/plugins/jquery-validation/jquery.validate.min.js" />"></script>
+<script src="<c:url value="/resources/plugins/jquery-validation/additional-methods.min.js" />"></script>
+<script src="<c:url value="/resources/dist/js/validate.js" />"></script> <!-- 独自JS(バリデータ) -->
 <!-- Bootstrap 4 -->
 <script src="<c:url value="/resources/plugins/bootstrap/js/bootstrap.bundle.min.js" />"></script>
 <!-- AdminLTE App -->

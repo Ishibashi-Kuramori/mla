@@ -22,17 +22,14 @@
             <div class="card card-info">
               <div class="card-header">
                 <h3 class="card-title">Rental Site ログインフォーム</h3>
-              </div>
-              <!-- /.card-header -->
-              <!-- form start -->
-              <form:form modelAttribute="loginModel" class="form-horizontal">
-                <form:hidden path="name" value="Guest User" />
+              </div> <!-- /.card-header -->
+              <form:form modelAttribute="loginModel" class="form-horizontal" id="memberForm">
+                <form:hidden path="member_name" value="Guest User" />
                 <div class="card-body">
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-10">
                       <form:input path="email" class="form-control" id="inputEmail3" placeholder="Email" />
-                      <div class="text-danger">${errorMessage}</div>
                       <form:errors path="email" element="div" cssClass="text-danger" />
                     </div>
                   </div>
@@ -43,13 +40,12 @@
                       <form:errors path="password" element="div" cssClass="text-danger" />
                     </div>
                   </div>
+                  <span class="error invalid-feedback" style="display: inline;">${errorMessage}</span>
                 </div>
-                <!-- /.card-body -->
                 <div class="card-footer">
                   <button type="submit" class="btn btn-info">ログイン</button>
                   <button type="button" class="btn btn-default float-right" onclick="history.back()">キャンセル</button>
                 </div>
-                <!-- /.card-footer -->
               </form:form>
             </div>
             <!-- /.card -->
@@ -64,6 +60,10 @@
 
 <!-- Bootstrap 4 -->
 <script src="<c:url value="/resources/plugins/bootstrap/js/bootstrap.bundle.min.js" />"></script>
+<!-- jquery-validation -->
+<script src="<c:url value="/resources/plugins/jquery-validation/jquery.validate.min.js" />"></script>
+<script src="<c:url value="/resources/plugins/jquery-validation/additional-methods.min.js" />"></script>
+<script src="<c:url value="/resources/dist/js/validate.js" />"></script> <!-- 独自JS(バリデータ) -->
 <!-- AdminLTE App -->
 <script src="<c:url value="/resources/dist/js/adminlte.min.js" />"></script>
 </body>

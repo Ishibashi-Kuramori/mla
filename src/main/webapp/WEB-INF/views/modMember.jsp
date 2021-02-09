@@ -41,14 +41,14 @@ input[type="radio"]:checked + label img {
     <div class="content">
       <div class="container-fluid">
         <!-- form start -->
-        <form:form modelAttribute="loginModel" class="form-horizontal">
+        <form:form modelAttribute="loginModel" class="form-horizontal" id="memberForm">
           <form:hidden path="member_id" value="${loginModel.member_id}" />
           <div class="card-body">
             <div class="form-group row">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">お名前</label>
+              <label for="inputMemberName3" class="col-sm-2 col-form-label">お名前</label>
               <div class="col-sm-10">
-                <form:input path="name" class="form-control" id="inputEmail3" placeholder="お名前" />
-                <form:errors path="name" element="div" cssClass="text-danger" />
+                <form:input path="member_name" class="form-control" id="inputMemberName3" placeholder="お名前" />
+                <form:errors path="member_name" element="div" cssClass="text-danger" />
               </div>
             </div>
             <div class="form-group row">
@@ -154,8 +154,8 @@ input[type="radio"]:checked + label img {
                           月額：${plan.monthly}円
                     </small>
                   </div> <!-- /.card-body -->
-                </div>            
-              </div>            
+                </div>
+              </div>
 </c:forEach>
             </div>
           </div> <!-- /.card-body -->
@@ -164,7 +164,7 @@ input[type="radio"]:checked + label img {
             <button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#modal-danger">退会</button>
             <button type="reset" class="btn btn-default float-right mr-3">リセット</button>
           </div> <!-- /.card-footer -->
-          
+
   <div class="modal fade" id="modal-danger">
     <div class="modal-dialog">
       <div class="modal-content bg-danger">
@@ -184,7 +184,6 @@ input[type="radio"]:checked + label img {
       </div> <!-- /.modal-content -->
     </div> <!-- /.modal-dialog -->
   </div> <!-- /.modal -->
-          
         </form:form>
       </div> <!-- /.container-fluid -->
     </div> <!-- /.content -->

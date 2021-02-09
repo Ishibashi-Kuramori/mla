@@ -20,7 +20,7 @@ public class Member {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int member_id;
 
-	private String name;
+	private String member_name;
 	private String email;
 	private String password;
 	private int admin;
@@ -35,7 +35,7 @@ public class Member {
 	@OneToOne
 	@JoinColumn(name="plan_id", insertable=false, updatable=false)
 	private Plan plan;
-	
+
 	public Plan getPlan() {
 		return plan;
 	}
@@ -48,11 +48,11 @@ public class Member {
 	public void setMember_id(int member_id) {
 		this.member_id = member_id;
 	}
-	public String getName() {
-		return name;
+	public String getMember_name() {
+		return member_name;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
 	}
 	public String getEmail() {
 		return email;

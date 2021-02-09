@@ -3,11 +3,12 @@ package jp.ken.mla.model;
 import java.io.Serializable;
 import java.util.Date;
 
+// eclipse 2020版で org.hibernate が機能しない為、JS側で制御する
 //import org.hibernate.validator.constraints.NotEmpty;
+//import org.hibernate.validator.constraints.Email;
 
 import jp.ken.mla.entity.Plan;
 
-//import org.hibernate.validator.constraints.Email;
 
 public class LoginModel implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -15,7 +16,7 @@ public class LoginModel implements Serializable {
 	private int member_id = 0;
 
 //	@NotEmpty(message="名前は必須入力です。")
-	private String name = "Guest User";
+	private String member_name = "Guest User";
 
 //	@NotEmpty(message="Emailは必須入力です。")
 //	@Email(message="Emailの形式に誤りがあります。")
@@ -46,11 +47,11 @@ public class LoginModel implements Serializable {
 	public void setMember_id(int member_id) {
 		this.member_id = member_id;
 	}
-	public String getName() {
-		return name;
+	public String getMember_name() {
+		return member_name;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
 	}
 	public String getEmail() {
 		return email;

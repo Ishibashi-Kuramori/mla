@@ -37,16 +37,15 @@ input[type="radio"]:checked + label img {
             <div class="card card-info">
               <div class="card-header">
                 <h3 class="card-title">Rental Site 新規登録フォーム</h3>
-              </div>
-              <!-- /.card-header -->
+              </div> <!-- /.card-header -->
               <!-- form start -->
-              <form:form modelAttribute="loginModel" class="form-horizontal">
+              <form:form modelAttribute="loginModel" class="form-horizontal" id="memberForm">
                 <div class="card-body">
                   <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">お名前</label>
+                    <label for="inputMemberName3" class="col-sm-2 col-form-label">お名前</label>
                     <div class="col-sm-10">
-                      <form:input path="name" class="form-control" id="inputEmail3" placeholder="お名前" />
-                      <form:errors path="name" element="div" cssClass="text-danger" />
+                      <form:input path="member_name" class="form-control" id="inputMemberName3" placeholder="お名前" />
+                      <form:errors path="member_name" element="div" cssClass="text-danger" />
                     </div>
                   </div>
                   <div class="form-group row">
@@ -54,7 +53,6 @@ input[type="radio"]:checked + label img {
                     <div class="col-sm-10">
                       <form:input path="email" class="form-control" id="inputEmail3" placeholder="Email" />
                       <form:errors path="email" element="div" cssClass="text-danger" />
-                      <div class="text-danger">${errorMessage}</div>
                     </div>
                   </div>
                   <div class="form-group row">
@@ -113,24 +111,23 @@ input[type="radio"]:checked + label img {
                       </div>
                     </div>
                   </div>
-                </div>
-                <!-- /.card-body -->
+                </div> <!-- /.card-body -->
+                <span class="error invalid-feedback" style="display: inline;">${errorMessage}</span>
                 <div class="card-footer">
                   <button type="submit" class="btn btn-info">登録</button>
                   <button type="button" class="btn btn-default float-right" onclick="history.back()">キャンセル</button>
-                </div>
-                <!-- /.card-footer -->
+                </div> <!-- /.card-footer -->
               </form:form>
-            </div>
-            <!-- /.card -->
-  </div>
-  <!-- ./wrapper -->
-
+            </div> <!-- /.card -->
+  </div> <!-- ./wrapper -->
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
 <script src="<c:url value="/resources/plugins/jquery/jquery.min.js" />"></script>
-
+<!-- jquery-validation -->
+<script src="<c:url value="/resources/plugins/jquery-validation/jquery.validate.min.js" />"></script>
+<script src="<c:url value="/resources/plugins/jquery-validation/additional-methods.min.js" />"></script>
+<script src="<c:url value="/resources/dist/js/validate.js" />"></script> <!-- 独自JS(バリデータ) -->
 <!-- Bootstrap 4 -->
 <script src="<c:url value="/resources/plugins/bootstrap/js/bootstrap.bundle.min.js" />"></script>
 <!-- AdminLTE App -->

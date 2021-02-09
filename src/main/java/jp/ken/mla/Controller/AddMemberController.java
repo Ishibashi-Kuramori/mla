@@ -24,6 +24,7 @@ import jp.ken.mla.model.LoginModel;
 @RequestMapping("addMember")
 @SessionAttributes("loginModel")
 public class AddMemberController {
+
 	private static ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
 	@SuppressWarnings("unchecked")
 	private static MemberDAO<Member> memberDAO = (MemberDAO<Member>)context.getBean("memberDAO");
@@ -37,7 +38,7 @@ public class AddMemberController {
 
 	@RequestMapping(method=RequestMethod.GET)
 	public String toAddMember(Model model, @ModelAttribute LoginModel lModel) {
-		lModel.setName("");
+		lModel.setMember_name("");
 		model.addAttribute("payList", payDAO.allList());
 		return "addMember";
 	}
@@ -87,5 +88,4 @@ public class AddMemberController {
 			}
 		}
 	}
-
 }
