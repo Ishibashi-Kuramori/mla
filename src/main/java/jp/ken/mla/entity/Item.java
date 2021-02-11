@@ -6,8 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-//import javax.persistence.JoinColumn;
-//import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -28,6 +28,17 @@ public class Item {
 	private int add_point;
 	private Date make_date;
 	private Date update_date;
+
+	@OneToOne
+	@JoinColumn(name="media_id", insertable=false, updatable=false)
+	private Media media;
+
+	public Media getMedia() {
+		return media;
+	}
+	public void setMedia(Media media) {
+		this.media = media;
+	}
 	public int getItem_id() {
 		return item_id;
 	}
