@@ -32,12 +32,7 @@ public class IndexController {
 	// TOPページ
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public String toTop(Model model) {
-		SearchModel sModel = new SearchModel();
-		model.addAttribute("searchModel", sModel);
 		setActiveTab(model, "top");
-		model.addAttribute("newList", itemDAO.top5List(0));
-		model.addAttribute("oldList", itemDAO.top5List(1));
-		model.addAttribute("allList", itemDAO.allList());
 		return "index";
 	}
 
@@ -48,11 +43,8 @@ public class IndexController {
 		if(!word.isEmpty()) {
 			model.addAttribute("searchList", itemDAO.searchList(word));
 		}
-		model.addAttribute("searchModel", sModel);
 		setActiveTab(model, "top");
-		model.addAttribute("newList", itemDAO.top5List(0));
-		model.addAttribute("oldList", itemDAO.top5List(1));
-		model.addAttribute("allList", itemDAO.allList());
+		model.addAttribute("searchModel", sModel);
 		return "index";
 	}
 
@@ -104,6 +96,13 @@ public class IndexController {
 	// -----------------------------
 
 	public static void setActiveTab(Model model, String pName) {
+		SearchModel sModel = new SearchModel();
+		model.addAttribute("searchModel", sModel);
+		if(pName.equals("top")) {
+			model.addAttribute("newList", itemDAO.top5List(0));
+			model.addAttribute("oldList", itemDAO.top5List(1));
+			model.addAttribute("allList", itemDAO.allList());
+		}
 		model.addAttribute("activeTop",       (pName.equals("top"))       ? "active" : "");
 		model.addAttribute("activeModMember", (pName.equals("modMember")) ? "active" : "");
 		model.addAttribute("activeRental",    (pName.equals("rental"))    ? "active" : "");
