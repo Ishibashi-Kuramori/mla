@@ -25,4 +25,27 @@ public class ItemDAOImpl implements ItemDAO<Item> {
 		session.close();
 		return itemList;
 	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Item> top5List(int new_old) {
+		Session session = sessionFactory.openSession();
+		Query query = session.createQuery("FROM Item WHERE new_old = ? ORDER BY can_rental_date DESC");
+		query.setParameter(0, new_old);
+		query.setMaxResults(5);
+		List<Item> itemList = query.list();
+		session.close();
+		return itemList;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Item> searchList(String word) {
+		Session session = sessionFactory.openSession();
+		Query query = session.createQuery("FROM Item WHERE item_name LIKE ?");
+		query.setParameter(0, "%" + word + "%");
+		List<Item> itemList = query.list();
+		session.close();
+		return itemList;
+	}
 }

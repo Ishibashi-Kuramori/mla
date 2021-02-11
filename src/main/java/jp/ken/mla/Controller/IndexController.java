@@ -13,6 +13,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import jp.ken.mla.dao.ItemDAO;
 import jp.ken.mla.entity.Item;
 import jp.ken.mla.model.LoginModel;
+import jp.ken.mla.model.SearchModel;
 
 @Controller
 @SessionAttributes("loginModel")
@@ -28,10 +29,30 @@ public class IndexController {
 		return new LoginModel();
 	}
 
+	// TOPページ
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public String toTop(Model model) {
+		SearchModel sModel = new SearchModel();
+		model.addAttribute("searchModel", sModel);
 		setActiveTab(model, "top");
-		model.addAttribute("itemList", itemDAO.allList());
+		model.addAttribute("newList", itemDAO.top5List(0));
+		model.addAttribute("oldList", itemDAO.top5List(1));
+		model.addAttribute("allList", itemDAO.allList());
+		return "index";
+	}
+
+	// 商品検索
+	@RequestMapping(value="/index", method=RequestMethod.POST, params="search")
+	public String searchResult(@ModelAttribute SearchModel sModel, Model model) {
+		String word = sModel.getWord();
+		if(!word.isEmpty()) {
+			model.addAttribute("searchList", itemDAO.searchList(word));
+		}
+		model.addAttribute("searchModel", sModel);
+		setActiveTab(model, "top");
+		model.addAttribute("newList", itemDAO.top5List(0));
+		model.addAttribute("oldList", itemDAO.top5List(1));
+		model.addAttribute("allList", itemDAO.allList());
 		return "index";
 	}
 

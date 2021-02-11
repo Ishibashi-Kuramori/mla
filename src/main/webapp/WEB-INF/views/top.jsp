@@ -11,7 +11,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12">
-            <h1 class="m-0">作品一覧</h1>
+            <h1 class="m-0">Welcom to Rental Site</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -20,38 +20,151 @@
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Striped Full Width Table</h3>
+        <div class="card card-primary card-tabs">
+          <div class="card-header p-0 pt-1">
+            <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+<c:if test="${searchList != null}">
+              <li class="nav-item">
+                <a class="nav-link active" id="custom-tabs-ons-search-tab" data-toggle="pill" href="#custom-tabs-ons-search" role="tab" aria-controls="custom-tabs-ons-search" aria-selected="true">検索結果</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="custom-tabs-one-new-tab" data-toggle="pill" href="#custom-tabs-one-new" role="tab" aria-controls="custom-tabs-one-new" aria-selected="false">新作Top5</a>
+              </li>
+</c:if>
+<c:if test="${searchList == null}">
+              <li class="nav-item">
+                <a class="nav-link active" id="custom-tabs-one-new-tab" data-toggle="pill" href="#custom-tabs-one-new" role="tab" aria-controls="custom-tabs-one-new" aria-selected="true">新作Top5</a>
+              </li>
+</c:if>
+              <li class="nav-item">
+                <a class="nav-link" id="custom-tabs-one-old-tab" data-toggle="pill" href="#custom-tabs-one-old" role="tab" aria-controls="custom-tabs-one-old" aria-selected="false">旧作Top5</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="custom-tabs-ons-all-tab" data-toggle="pill" href="#custom-tabs-ons-all" role="tab" aria-controls="custom-tabs-ons-all" aria-selected="false">全作品一覧</a>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <div class="tab-content" id="custom-tabs-one-tabContent">
+<c:if test="${searchList != null}">
+              <!-- 検索結果 -->
+              <div class="tab-pane fade show active" id="custom-tabs-ons-search" role="tabpanel" aria-labelledby="custom-tabs-ons-search-tab">
+  <c:if test="${searchList.size() > 0}">
+                <div class="card">
+                  <div class="card-body p-0">
+                    <table class="table table-striped">
+                      <tbody>
+    <c:forEach var="item" items="${searchList}">
+                         <tr>
+                           <td class="align-middle" style="width: 80px">
+      <c:if test="${item.new_old == 0}">
+                             <div class="border bg-danger rounded text-center small">NEW</div>
+      </c:if>
+                             <div class="border bg-${item.media.media_color} rounded text-center small">${item.media.media_name}</div>
+                           </td>
+                           <td class="align-middle">
+                             ${item.item_name}<br />
+                             <span class="small">${item.media_id != 0 ? "監督" : "アーティスト"}：${item.author_name}</span></td>
+                           <td class="align-middle">
+                             <button type="button" class="btn btn-outline-primary w-100 ${loginModel.member_id != 0 ? "" : "disabled"}">借りる</button>
+                           </td>
+                         </tr>
+    </c:forEach>
+                       </tbody>
+                     </table>
+                   </div> <!-- /.card-body -->
+                 </div> <!-- /.card -->
+  </c:if>
+  <c:if test="${searchList.size() == 0}">
+                検索結果に該当する作品はありませんでした。
+  </c:if>
               </div>
-              <!-- /.card-header -->
-              <div class="card-body p-0">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th></th>
-                      <th>作品名</th>
-                      <th>在庫/発注</th>
-                      <th>開始日</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-<c:forEach var="item" items="${itemList}">
-                    <tr>
-                      <td></td>
-                      <td>
-                        ${item.item_name}<br />
-                            監督：${item.author_name}</td>
-                      <td>${item.stock_cnt} / ${item.order_cnt}</td>
-                      <td>${item.can_rental_date}</td>
-                    </tr>
+</c:if>
+              <!-- 新作Top5 -->
+              <div class="${searchList != null ? "tab-pane fade" : "tab-pane fade show active"}" id="custom-tabs-one-new" role="tabpanel" aria-labelledby="custom-tabs-one-new-tab">
+                <div class="card">
+                  <div class="card-body p-0">
+                    <table class="table table-striped">
+                      <tbody>
+<c:forEach var="item" items="${newList}">
+                         <tr>
+                           <td class="align-middle" style="width: 80px">
+<c:if test="${item.new_old == 0}">
+                             <div class="border bg-danger rounded text-center small">NEW</div>
+</c:if>
+                             <div class="border bg-${item.media.media_color} rounded text-center small">${item.media.media_name}</div>
+                           </td>
+                           <td class="align-middle">
+                             ${item.item_name}<br />
+                             <span class="small">${item.media_id != 0 ? "監督" : "アーティスト"}：${item.author_name}</span></td>
+                           <td class="align-middle">
+                             <button type="button" class="btn btn-outline-primary w-100 ${loginModel.member_id != 0 ? "" : "disabled"}">借りる</button>
+                           </td>
+                         </tr>
 </c:forEach>
-                  </tbody>
-                </table>
+                       </tbody>
+                     </table>
+                   </div> <!-- /.card-body -->
+                 </div> <!-- /.card -->
               </div>
-              <!-- /.card-body -->
+              <!-- 旧作Top5 -->
+              <div class="tab-pane fade" id="custom-tabs-one-old" role="tabpanel" aria-labelledby="custom-tabs-one-old-tab">
+                <div class="card">
+                  <div class="card-body p-0">
+                    <table class="table table-striped">
+                      <tbody>
+<c:forEach var="item" items="${oldList}">
+                         <tr>
+                           <td class="align-middle" style="width: 80px">
+<c:if test="${item.new_old == 0}">
+                             <div class="border bg-danger rounded text-center small">NEW</div>
+</c:if>
+                             <div class="border bg-${item.media.media_color} rounded text-center small">${item.media.media_name}</div>
+                           </td>
+                           <td class="align-middle">
+                             ${item.item_name}<br />
+                             <span class="small">${item.media_id != 0 ? "監督" : "アーティスト"}：${item.author_name}</span></td>
+                           <td class="align-middle">
+                             <button type="button" class="btn btn-outline-primary w-100 ${loginModel.member_id != 0 ? "" : "disabled"}">借りる</button>
+                           </td>
+                         </tr>
+</c:forEach>
+                       </tbody>
+                     </table>
+                   </div> <!-- /.card-body -->
+                 </div> <!-- /.card -->
+              </div>
+              <!-- 全作品一覧 -->
+              <div class="tab-pane fade" id="custom-tabs-ons-all" role="tabpanel" aria-labelledby="custom-tabs-ons-all-tab">
+                <div class="card">
+                  <div class="card-body p-0">
+                    <table class="table table-striped">
+                      <tbody>
+<c:forEach var="item" items="${allList}">
+                         <tr>
+                           <td class="align-middle" style="width: 80px">
+<c:if test="${item.new_old == 0}">
+                             <div class="border bg-danger rounded text-center small">NEW</div>
+</c:if>
+                             <div class="border bg-${item.media.media_color} rounded text-center small">${item.media.media_name}</div>
+                           </td>
+                           <td class="align-middle">
+                             ${item.item_name}<br />
+                             <span class="small">${item.media_id != 0 ? "監督" : "アーティスト"}：${item.author_name}</span></td>
+                           <td class="align-middle">
+                             <button type="button" class="btn btn-outline-primary w-100 ${loginModel.member_id != 0 ? "" : "disabled"}">借りる</button>
+                           </td>
+                         </tr>
+</c:forEach>
+                      </tbody>
+                    </table>
+                  </div> <!-- /.card-body -->
+                </div> <!-- /.card -->
+              </div>
             </div>
-            <!-- /.card -->
+          </div> <!-- /.card -->
+        </div>
+
       </div><!-- /.container-fluid -->
     </div><!-- /.content -->
   </div><!-- /.content-wrapper -->
