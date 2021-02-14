@@ -42,8 +42,9 @@ public class ItemDAOImpl implements ItemDAO<Item> {
 	@SuppressWarnings("unchecked")
 	public List<Item> searchList(String word) {
 		Session session = sessionFactory.openSession();
-		Query query = session.createQuery("FROM Item WHERE item_name LIKE ?");
+		Query query = session.createQuery("FROM Item WHERE item_name LIKE ? OR author_name LIKE ?");
 		query.setParameter(0, "%" + word + "%");
+		query.setParameter(1, "%" + word + "%");
 		List<Item> itemList = query.list();
 		session.close();
 		return itemList;

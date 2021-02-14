@@ -22,6 +22,7 @@
 				<value>jp.ken.mla.entity.Plan</value>
 				<value>jp.ken.mla.entity.Item</value>
 				<value>jp.ken.mla.entity.Media</value>
+				<value>jp.ken.mla.entity.Rental</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -41,6 +42,9 @@
 		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
 	<bean id="itemDAO" class="jp.ken.mla.dao.ItemDAOImpl">
+		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+	<bean id="rentalDAO" class="jp.ken.mla.dao.RentalDAOImpl">
 		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
 </beans>
