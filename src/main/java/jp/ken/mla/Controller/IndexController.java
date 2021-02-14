@@ -20,7 +20,6 @@ import jp.ken.mla.model.SearchModel;
 public class IndexController {
 
 	private static ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
-
 	@SuppressWarnings("unchecked")
 	private static ItemDAO<Item> itemDAO = (ItemDAO<Item>)context.getBean("itemDAO");
 
@@ -54,13 +53,6 @@ public class IndexController {
 		status.setComplete();
 		setUpLoginModel();
 		return "redirect:/index";
-	}
-
-	// レンタル管理
-	@RequestMapping(value="/rental", method=RequestMethod.GET)
-	public String toRental(Model model) {
-		setActiveTab(model, "rental");
-		return "index";
 	}
 
 	// 履歴管理
@@ -112,5 +104,4 @@ public class IndexController {
 		model.addAttribute("activeInfo",      (pName.equals("info"))      ? "active" : "");
 		model.addAttribute("pName", pName);
 	}
-
 }
