@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import jp.ken.mla.dao.RentalDAO;
 import jp.ken.mla.entity.Rental;
 import jp.ken.mla.model.LoginModel;
+import jp.ken.mla.model.RentalModel;
 
 @Controller
 @RequestMapping("rental")
@@ -28,10 +29,27 @@ public class RentalController {
 	@SuppressWarnings("unchecked")
 	private static RentalDAO<Rental> rentalDAO = (RentalDAO<Rental>)context.getBean("rentalDAO");
 
+	private int member_id = 0;
+	
 	@RequestMapping(method=RequestMethod.GET)
-	public String toRental(Model model, @ModelAttribute LoginModel lModel) {
-		model.addAttribute("rentalList", rentalDAO.getByMemberId(lModel.getMember_id()));
+	public String toRental(Model model, LoginModel lModel) {
+		if(lModel.getMember_id() == 0) { // 未ログイン時はログイン画面にリダイレクト
+			return "redirect:/login";
+		}
+		member_id = lModel.getMember_id();
+		model.addAttribute("rentalList", rentalDAO.getByMemberId(member_id));
+		model.addAttribute("rentalIds", rentalDAO.getByRentalItemIds(member_id));
 		IndexController.setActiveTab(model, "rental");
 		return "index";
+	}
+	
+	// 商品の発送準備中(キャンセル)ボタン
+	@RequestMapping(method=RequestMethod.POST, params="rentalDel")
+	public String rentalDelBtn(@ModelAttribute RentalModel rModel, Model model) {
+		Rental rental = rentalDAO.getByItemMemberId(rModel.getItem_id(), member_id);
+		if(!rentalDAO.deleteRentalData(rental)) {
+			System.out.println("レンタル管理テーブルdeleteエラー");
+		}
+		return "redirect:/rental";
 	}
 }
