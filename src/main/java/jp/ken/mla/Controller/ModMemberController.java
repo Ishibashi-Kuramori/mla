@@ -35,7 +35,10 @@ public class ModMemberController {
 	private static PlanDAO<Plan> planDAO = (PlanDAO<Plan>)context.getBean("planDAO");
 
 	@RequestMapping(method=RequestMethod.GET)
-	public String toAddMember(Model model) {
+	public String toAddMember(Model model, LoginModel lModel) {
+		if(lModel.getMember_id() == 0) { // 未ログイン時はログイン画面にリダイレクト
+			return "redirect:/login";
+		}
 		return setDispModMember(model, "");
 	}
 

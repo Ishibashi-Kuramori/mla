@@ -16,20 +16,23 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jp.ken.mla.dao.MemberDAO;
 import jp.ken.mla.dao.PayDAO;
+import jp.ken.mla.dao.PlanDAO;
 import jp.ken.mla.entity.Member;
 import jp.ken.mla.entity.Pay;
+import jp.ken.mla.entity.Plan;
 import jp.ken.mla.model.LoginModel;
 
 @Controller
 @RequestMapping("addMember")
 @SessionAttributes("loginModel")
 public class AddMemberController {
-
 	private static ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
 	@SuppressWarnings("unchecked")
 	private static MemberDAO<Member> memberDAO = (MemberDAO<Member>)context.getBean("memberDAO");
 	@SuppressWarnings("unchecked")
 	private static PayDAO<Pay> payDAO = (PayDAO<Pay>)context.getBean("payDAO");
+	@SuppressWarnings("unchecked")
+	private static PlanDAO<Plan> planDAO = (PlanDAO<Plan>)context.getBean("planDAO");
 
 	@ModelAttribute("loginModel")
 	public LoginModel setUpLoginModel() {
@@ -58,23 +61,14 @@ public class AddMemberController {
 		} else {
 			Member member = new Member();
 			BeanUtils.copyProperties(lModel, member);
-/*
-			member.setName(lModel.getName());
-			member.setAdmin(lModel.getAdmin());
-			member.setPlan_id(lModel.getPlan_id());
-			member.setPay_id(lModel.getPay_id());
-			member.setTotal_point(lModel.getTotal_point());
-			member.setIcon_idx(lModel.getIcon_idx());
-			member.setJoin_date(lModel.getJoin_date());
-			member.setMake_date(lModel.getMake_date());
-			member.setUpdate_date(lModel.getUpdate_date());
-*/
+
 			if(memberDAO.insertMemberData(member)) {
 				// IDを取得する為、insertしたレコードを再取得する
 				list = memberDAO.getByMail(lModel.getEmail());
 				if(list.size() > 0) {
 					member = list.get(0);
 					lModel.setMember_id(member.getMember_id());
+					lModel.setPlan(planDAO.getById(lModel.getPlan_id()));
 					return "redirect:/index";
 				} else {
 					model.addAttribute("errorMessage", "レコード再取得に失敗しました。");

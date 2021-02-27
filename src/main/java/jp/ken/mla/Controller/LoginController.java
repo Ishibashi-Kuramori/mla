@@ -48,18 +48,6 @@ public class LoginController {
 			// Modelの内容をDB取得データに差し替える
 			Member member = list.get(0);
 			BeanUtils.copyProperties(member, lModel);
-/*
-			lModel.setMember_id(member.getMember_id());
-			lModel.setName(member.getName());
-			lModel.setAdmin(member.getAdmin());
-			lModel.setPlan_id(member.getPlan_id());
-			lModel.setPay_id(member.getPay_id());
-			lModel.setTotal_point(member.getTotal_point());
-			lModel.setIcon_idx(member.getIcon_idx());
-			lModel.setJoin_date(member.getJoin_date());
-			lModel.setMake_date(member.getMake_date());
-			lModel.setUpdate_date(member.getUpdate_date());
-*/
 			return "redirect:/index";
 		}
 	}

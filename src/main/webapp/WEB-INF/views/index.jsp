@@ -90,7 +90,12 @@
         </div>
         <div class="info">
           <a href="#" class="d-block">
+<c:if test="${loginModel.member_id != 0}">
             ${loginModel.member_name}<c:if test="${loginModel.admin == 1}">&nbsp;<i class="fas fa-user-cog"></i></c:if>
+</c:if>
+<c:if test="${loginModel.member_id == 0}">
+              Guest User
+</c:if>
           </a>
         </div>
       </div>

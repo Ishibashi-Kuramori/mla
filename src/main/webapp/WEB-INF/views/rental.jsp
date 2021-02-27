@@ -19,32 +19,29 @@
   <!-- Main content -->
   <div class="content">
     <div class="container-fluid">
-
-
-                <div class="card">
-                  <div class="card-body p-0">
-                    <table class="table table-striped">
-                      <tbody>
+<c:if test="${rentalList.size() > 0}">
+      <div class="card">
+        <div class="card-body p-0">
+          <table class="table table-striped">
+            <tbody>
 <c:forEach var="rental" items="${rentalList}">
-                         <tr>
-                           <td class="align-middle" style="width: 80px">
-<c:if test="${rental.item.new_old == 0}">
-                             <div class="border bg-danger rounded text-center small">NEW</div>
-</c:if>
-                             <div class="border bg-${rental.item.media.media_color} rounded text-center small">${rental.item.media.media_name}</div>
-                           </td>
-                           <td class="align-middle">
-                             ${rental.item.item_name}<br />
-                             <span class="small">${rental.item.media_id != 0 ? "監督" : "アーティスト"}：${rental.item.author_name}</span></td>
-                           <td class="align-middle">
-                           </td>
-                         </tr>
+  <c:set var="item" value="${rental.item}"/>
+  <%@ include file="parts/itemRecord.jsp" %>
 </c:forEach>
-                       </tbody>
-                     </table>
-                   </div> <!-- /.card-body -->
-                 </div> <!-- /.card -->
-
+            </tbody>
+          </table>
+        </div> <!-- /.card-body -->
+      </div> <!-- /.card -->
+</c:if>
+<c:if test="${rentalList.size() == 0}">
+      <div class="card-body">
+        <div class="alert alert-info alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <h5><i class="icon fas fa-info"></i> Info</h5>
+             まだ作品を借りていません。
+        </div>
+      </div>
+</c:if>
     </div><!-- /.container-fluid -->
   </div><!-- /.content -->
 </div><!-- /.content-wrapper -->
